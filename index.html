@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The Thing: Station 31 Simulation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</head>
+<body>
+  <main class="crt">
+    <div id="output"></div>
+    <div id="choices"></div>
+    <div id="trophy">
+      <p>SIMULATION RESULT: HUMAN.</p>
+      <p class="muted">Download your clearance badge below:</p>
+      <p><a href="trophy.png" download="station-31-clearance.png">⬇ Download badge</a></p>
+    </div>
+  </main>
+
+  <script>
+    const storyNodes = {
+      intro: {
+        text: [
+          "📡 STATION 31 SIMULATION v1.0",
+          "",
+          "Outside, the Antarctic wind tears at the walls. Inside, something else is trying to get in.",
+          "",
+          "A faint alarm flashes across the terminal:",
+          "  POSSIBLE ASSIMILATION EVENT DETECTED.",
+          ""
+        ].join("\n"),
+        choices: [
+          {
+            label: "Run kennel status check.",
+            next: "kennel"
+          },
+          {
+            label: "Run blood-test simulation.",
+            next: "lab"
+          }
+        ]
+      },
+      kennel: {
+        text: "The dogs pace in their pens, eyes reflecting back the emergency lights. One dog doesn't move at all.\n\nYour fingers hover over the keyboard.",
+        choices: [
+          {
+            label: "Flag the unmoving dog for isolation.",
+            next: "kennel_flag",
+            effect: (state) => { state.caution++; }
+          },
+          {
+            label: "Override alert. Mark kennel as stable.",
+            next: "kennel_ignore",
+            effect: (state) => { state.caution--; }
+          }
+        ]
+      },
+      kennel_flag: {
+        text: "You mark the dog for immediate isolation. The system notes your caution.\n\nAn icy draft slips under the door.",
+        choices: [
+          { label: "Return to main console.", next: "hub" }
+        ]
+      },
+      kennel_ignore: {
+        text: "You silence the kennel alert. The dogs quiet one by one, as if they heard you.\n\nThe monitor flickers.",
+        choices: [
+          { label: "Return to main console.", next: "hub" }
+        ]
+      },
+      lab: {
+        text: "You queue blood samples from the remaining crew. Somewhere in the data, something is wrong.",
+        choices: [
+          {
+            label: "Prioritize sample integrity checks.",
+            next: "lab_careful",
+            effect: (state) => { state.caution++; }
+          },
+          {
+            label: "Skip straight to anomaly scan.",
+            next: "lab_rush",
+            effect: (state) => { state.caution--; }
+          }
+        ]
+      },
+      lab_careful: {
+        text: "You double-check each sample. One vial is warmer than it should be.\n\nYou flag it quietly.",
+        choices: [
+          { label: "Cross-reference with crew manifest.", next: "hub", effect: (state) => { state.notes.push('flagged_sample'); } }
+        ]
+      },
+      lab_rush: {
+        text: "You slam the anomaly scan command. The terminal stalls.\n\nFor a moment the reflection on the dark screen isn't yours.",
+        choices: [
+          { label: "Pretend you didn't see that. Return to main console.", next: "hub" }
+        ]
+      },
+      hub: {
+        text: state => {
+          let base = "The station groans as another gust hits. Lines of data crawl across the console.";
+          if (state.caution >= 2) {
+            base += "\n\nSYSTEM NOTE: Operator behavior trending CAUTIOUS. Survival odds increased.";
+          } else if (state.caution <= -2) {
+            base += "\n\nSYSTEM NOTE: Operator behavior trending RECKLESS. Assimilation odds increased.";
+          }
+          base += "\n\nA final decision prompt blinks at you: TRUST | ISOLATE.";
+          return base;
+        },
+        choices: [
+          {
+            label: "Trust the remaining crew.",
+            next: "ending_trust"
+          },
+          {
+            label: "Isolate and test everyone.",
+            next: "ending_isolate",
+            effect: (state) => { state.caution++; }
+          }
+        ]
+      },
+      ending_trust: {
+        text: state => {
+          if (state.caution >= 2 && state.notes.includes('flagged_sample')) {
+            return "You trust, but you trust your own work more.\n\nThe flagged sample never makes it back to the rec room. The station survives the night.\n\nOutside, the storm keeps screaming. Inside, everyone stays human.";
+          } else {
+            return "You trust the faces you know.\n\nHours later, the generator fails. When the lights return, there are fewer faces to recognize.\n\nThe simulation fades out on a single, inhuman silhouette in the snow.";
+          }
+        },
+        choices: [
+          { label: "Restart simulation.", next: "intro" }
+        ],
+        ending: true
+      },
+      ending_isolate: {
+        text: state => {
+          return "You lock down every corridor, every door, every excuse.\n\nOne by one, the tests run. One by one, they come back clean... except for the sample you already suspected.\n\nYou never see what it really looks like. You don't need to.\n\nBy dawn, the thing is ash and the station is quiet.";
+        },
+        choices: [
+          { label: "Run again from the beginning.", next: "intro" }
+        ],
+        ending: "good"
+      }
+    };
+
+    const gameState = {
+      caution: 0,
+      notes: []
+    };
+
+    let currentNodeId = "intro";
+
+    function resetState() {
+      gameState.caution = 0;
+      gameState.notes = [];
+    }
+
+    function renderNode(nodeId) {
+      const node = storyNodes[nodeId];
+      currentNodeId = nodeId;
+
+      const outputEl = document.getElementById("output");
+      const choicesEl = document.getElementById("choices");
+      const trophyEl = document.getElementById("trophy");
+
+      // Hide trophy by default; we'll show it only on good ending
+      trophyEl.style.display = "none";
+
+      // Resolve text (can be function or string)
+      const text = typeof node.text === "function" ? node.text(gameState) : node.text;
+      outputEl.textContent = text;
+
+      // Clear old choices
+      choicesEl.innerHTML = "";
+
+      // Render choices
+      node.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.className = "choice";
+        btn.textContent = choice.label;
+        btn.addEventListener("click", () => {
+          if (choice.effect) {
+            choice.effect(gameState);
+          }
+
+          const nextNode = storyNodes[choice.next];
+          if (!nextNode) return;
+
+          // If we're moving from an ending node back to intro, reset
+          if (storyNodes[currentNodeId].ending && choice.next === "intro") {
+            resetState();
+          }
+
+          renderNode(choice.next);
+
+          // After rendering, if new node is a "good" ending, show trophy
+          if (nextNode.ending === "good") {
+            trophyEl.style.display = "block";
+          }
+        });
+        choicesEl.appendChild(btn);
+      });
+    }
+
+    // Initialize
+    renderNode(currentNodeId);
+  </script>
+</body>
+</html>

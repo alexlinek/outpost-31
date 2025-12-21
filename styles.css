@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  background: #020a0f;
+  color: #aef7ff;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.crt {
+  max-width: 700px;
+  width: 100%;
+  border: 2px solid #0ff;
+  padding: 1.5rem;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+  background: radial-gradient(circle at top, #032437, #010309);
+}
+#output {
+  white-space: pre-wrap;
+  line-height: 1.5;
+  min-height: 160px;
+  margin-bottom: 1.5rem;
+}
+#choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+button.choice {
+  background: transparent;
+  border: 1px solid #0ff;
+  color: #aef7ff;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+button.choice:hover {
+  background: rgba(0, 255, 255, 0.12);
+}
+#trophy {
+  margin-top: 1rem;
+  border-top: 1px solid rgba(174, 247, 255, 0.4);
+  padding-top: 1rem;
+  display: none;
+}
+.muted {
+  color: #5fd0e0;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}

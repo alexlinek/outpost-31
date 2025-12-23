@@ -1,53 +1,495 @@
+/* styles.css */
+:root {
+  --bg: #010611;
+  --panel: #071c3a;
+  --panel2: #06142b;
+  --fg: #d7f0ff;
+  --dim: rgba(215, 240, 255, 0.72);
+  --accent: #7bd7ff;
+  --border: 2px;
+  --radius: 10px;
+
+  /* FLUID TYPE */
+  --fs-base: clamp(18px, 1.3vw + 14px, 26px);
+  --fs-title: clamp(30px, 4vw + 10px, 64px);
+  --fs-ui: clamp(16px, 1vw + 12px, 22px);
+  --lh: 1.55;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
-  background: #020a0f;
-  color: #aef7ff;
-  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
-    Consolas, "Liberation Mono", "Courier New", monospace;
+  background: radial-gradient(
+    1200px 900px at 50% 0%,
+    #0a2b57 0%,
+    var(--bg) 55%,
+    #000 100%
+  );
+  color: var(--fg);
+  font-family: ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono",
+    monospace;
+  font-size: var(--fs-base);
+  line-height: var(--lh);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 2vw, 24px);
+}
+
+#app {
+  width: min(980px, 96vw);
+  min-height: min(720px, 92vh);
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel2) 100%);
+  border: var(--border) solid rgba(123, 215, 255, 0.65);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 0 40px rgba(123, 215, 255, 0.12), 0 0 120px rgba(123, 215, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(14px, 2vw, 26px);
+}
+
+/* scanlines */
+#app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 1px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+/* glow/vignette */
+#app::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  transform: translate(20%, -10%);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+/* HUD */
+.hud {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(123, 215, 255, 0.35);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+  font-size: var(--fs-ui);
+  color: var(--dim);
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
 }
-.crt {
-  max-width: 700px;
-  width: 100%;
-  border: 2px solid #0ff;
-  padding: 1.5rem;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-  background: radial-gradient(circle at top, #032437, #010309);
+
+.hud strong {
+  color: var(--fg);
 }
-#output {
-  white-space: pre-wrap;
-  line-height: 1.5;
-  min-height: 160px;
-  margin-bottom: 1.5rem;
-}
-#choices {
+
+.hudLeft {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 10px;
+  min-width: 0;
 }
-button.choice {
-  background: transparent;
-  border: 1px solid #0ff;
-  color: #aef7ff;
-  padding: 0.5rem 0.75rem;
+
+.hudRight {
+  color: var(--dim);
+  font-size: var(--fs-ui);
+  padding-top: 2px;
+  white-space: nowrap;
+}
+
+/* CRT JITTER ON HUD (triggered on risk spikes) */
+.hud.crt-jitter {
+  animation: crtJitter 260ms linear 1;
+}
+
+@keyframes crtJitter {
+  0% {
+    transform: translate(0, 0);
+  }
+  15% {
+    transform: translate(0.5px, -0.5px);
+  }
+  30% {
+    transform: translate(-0.6px, 0.4px);
+  }
+  45% {
+    transform: translate(0.7px, 0.2px);
+  }
+  60% {
+    transform: translate(-0.4px, -0.6px);
+  }
+  75% {
+    transform: translate(0.3px, 0.5px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* OUTPUT */
+#output {
+  white-space: pre-wrap;
+  margin: 0;
+  padding: 14px 14px 18px;
+  border: 1px solid rgba(123, 215, 255, 0.28);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.14);
+  min-height: 300px;
+}
+
+#choices {
+  margin-top: 14px;
+  border: 1px solid rgba(123, 215, 255, 0.28);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.12);
+  padding: 10px;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 6px;
   cursor: pointer;
-  text-align: left;
-  font: inherit;
+  user-select: none;
+  font-size: var(--fs-ui);
+  color: var(--fg);
+  outline: none;
 }
-button.choice:hover {
-  background: rgba(0, 255, 255, 0.12);
+
+.choice:hover {
+  background: rgba(123, 215, 255, 0.12);
 }
+
+.choice .marker {
+  width: 22px;
+  color: rgba(123, 215, 255, 0.85);
+  flex: 0 0 22px;
+  text-align: center;
+}
+
+.choice[aria-selected="true"] {
+  background: rgba(123, 215, 255, 0.18);
+  box-shadow: 0 0 0 1px rgba(123, 215, 255, 0.35) inset;
+}
+
+.choice[aria-selected="true"] .marker {
+  color: var(--accent);
+}
+
+/* Splash */
+.splash {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  gap: 18px;
+  place-items: center;
+  padding: clamp(16px, 3vw, 36px);
+  text-align: center;
+}
+
+.splash h1 {
+  margin: 0 0 10px 0;
+  font-size: var(--fs-title);
+  letter-spacing: 0.1em;
+}
+
+.splash .subtitle {
+  color: var(--dim);
+  font-size: var(--fs-ui);
+  margin-top: 2px;
+}
+
+.splash img {
+  width: min(520px, 70vw);
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 1px solid rgba(123, 215, 255, 0.35);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.promptRow {
+  width: 100%;
+  max-width: 520px;
+  border: 1px solid rgba(123, 215, 255, 0.28);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.16);
+  padding: 10px;
+}
+
+.promptHint {
+  color: var(--dim);
+  font-size: var(--fs-ui);
+}
+
+/* Sprites */
+.sprite {
+  display: block;
+  margin: 12px auto;
+  width: min(700px, 92%);
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 1px solid rgba(123, 215, 255, 0.28);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Trophy */
 #trophy {
-  margin-top: 1rem;
-  border-top: 1px solid rgba(174, 247, 255, 0.4);
-  padding-top: 1rem;
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid rgba(123, 215, 255, 0.28);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.12);
   display: none;
 }
-.muted {
-  color: #5fd0e0;
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
+
+a {
+  color: var(--accent);
+}
+a:hover {
+  text-decoration: none;
+}
+
+/* =========================
+   METERS
+   ========================= */
+.meters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.meter {
+  border: 1px solid rgba(123, 215, 255, 0.28);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.14);
+  padding: 8px 10px;
+}
+
+.meterTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: var(--fs-ui);
+  color: var(--dim);
+}
+
+.meterLabel {
+  color: var(--dim);
+}
+.meterValue {
+  color: var(--fg);
+}
+
+.meterTrack {
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(123, 215, 255, 0.22);
+  overflow: hidden;
+  position: relative;
+}
+
+.meterFill {
+  height: 100%;
+  width: 0%;
+  background: rgba(123, 215, 255, 0.55);
+  box-shadow: 0 0 18px rgba(123, 215, 255, 0.25);
+  transition: width 160ms linear;
+  position: relative;
+}
+
+/* Subtle differentiation */
+.meter[data-meter="caution"] .meterFill {
+  opacity: 0.95;
+}
+.meter[data-meter="paranoia"] .meterFill {
+  opacity: 0.75;
+}
+.meter[data-meter="risk"] .meterFill {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .meters {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   METER FX: TICKS + PULSE + BLIPS
+   ========================= */
+
+/* Tick marks overlay (10 segments) */
+.meterTrack::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.1) 0px,
+    rgba(255, 255, 255, 0.1) 1px,
+    rgba(0, 0, 0, 0) calc(10% - 1px),
+    rgba(0, 0, 0, 0) 10%
+  );
+  opacity: 0.35;
+}
+
+/* "Scan" sheen that travels during blips */
+.meterFill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.22) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-120%);
+  opacity: 0;
+}
+
+/* Blip animation when value changes */
+.meterTrack.blip-up {
+  animation: meterBlipUp 180ms linear;
+}
+.meterTrack.blip-down {
+  animation: meterBlipDown 180ms linear;
+}
+
+.meterTrack.blip-up .meterFill::after,
+.meterTrack.blip-down .meterFill::after {
+  animation: meterSheen 260ms linear;
+  opacity: 1;
+}
+
+@keyframes meterBlipUp {
+  0% {
+    box-shadow: 0 0 0 rgba(123, 215, 255, 0);
+  }
+  40% {
+    box-shadow: 0 0 14px rgba(123, 215, 255, 0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(123, 215, 255, 0);
+  }
+}
+
+@keyframes meterBlipDown {
+  0% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+  40% {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes meterSheen {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+/* Danger pulse for high risk */
+.meter[data-meter="risk"].danger {
+  border-color: rgba(255, 255, 255, 0.35);
+  animation: dangerPulse 900ms ease-in-out infinite;
+}
+.meter[data-meter="risk"].danger .meterTrack {
+  border-color: rgba(123, 215, 255, 0.38);
+}
+
+@keyframes dangerPulse {
+  0% {
+    box-shadow: 0 0 0 rgba(123, 215, 255, 0);
+  }
+  50% {
+    box-shadow: 0 0 26px rgba(123, 215, 255, 0.22);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(123, 215, 255, 0);
+  }
+}
+
+/* Critical flicker at max risk */
+.meter[data-meter="risk"].critical .meterFill {
+  animation: criticalFlicker 220ms steps(2, end) infinite;
+}
+@keyframes criticalFlicker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   LOG LINE
+   ========================= */
+.logline {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(123, 215, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--dim);
+  font-size: var(--fs-ui);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.logline span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

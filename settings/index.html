@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OUTPOST 31 — SETTINGS</title>
+  <link rel="stylesheet" href="../reset.css" />
+  <link rel="stylesheet" href="../styles/main.css" />
+</head>
+
+<body class="settingsPage">
+  <main class="settingsWrap">
+    <header class="settingsHeader">
+      <h1>SETTINGS / SYSTEM MENU</h1>
+      <p class="settingsSub">OUTPOST 31 PREDICTIVE MODEL v2.3</p>
+    </header>
+
+    <!-- SETTINGS PAGE: COMPLETE PLAYER GUIDE (drop into settings/index.html) -->
+<section id="help" class="settingsSection">
+    <h2>HELP / PLAYER GUIDE</h2>
+  
+    <h3>CONTROLS</h3>
+    <ul>
+      <li><strong>↑ / ↓</strong> — SELECT OPTION</li>
+      <li><strong>ENTER</strong> — CONFIRM</li>
+      <li><strong>CLICK/TAP</strong> — SELECT</li>
+    </ul>
+  
+    <h3>WHAT THIS IS</h3>
+    <p>
+      A SHORT, REPLAYABLE TEXT SIMULATION INSPIRED BY <em>THE THING</em>.
+      YOUR JOB IS TO GATHER EVIDENCE, CONFIRM INFECTION, THEN EXECUTE CONTAINMENT.
+      THE SIMULATION ENDS ONLY WHEN CONTAINMENT IS EXECUTED.
+    </p>
+  
+    <hr />
+  
+    <h3>DIFFICULTY / RIGOR (AFFECTS CLEARANCE)</h3>
+    <p>
+      THE SIM TRACKS <strong>3 STRONG EVIDENCE SIGNALS</strong>. RIGOR DETERMINES HOW MANY ARE REQUIRED FOR
+      <strong>CLEARANCE GRANTED</strong>.
+    </p>
+  
+    <ol>
+      <li><strong>KENNEL</strong> — PROVOCATION ANOMALY</li>
+      <li><strong>SECURITY PLAYBACK</strong> — TIMELINE CONTRADICTION</li>
+      <li><strong>GENERATOR</strong> — UNAUTHORIZED ROUTE (HAB-03)</li>
+    </ol>
+  
+    <ul>
+      <li><strong>RELAXED</strong> — 1/3 REQUIRED</li>
+      <li><strong>STANDARD</strong> (DEFAULT) — 2/3 REQUIRED</li>
+      <li><strong>STRICT</strong> — 3/3 REQUIRED</li>
+    </ul>
+  
+    <p>
+      THE CONSOLE DISPLAYS THIS AS: <strong>STRONG EVIDENCE REQUIRED: X/3</strong>.
+    </p>
+  
+    <hr />
+  
+    <h3>METERS</h3>
+    <dl>
+      <dt><strong>CAUTION</strong></dt>
+      <dd>PROCEDURE / VERIFICATION. HIGHER CAUTION SUPPORTS RELIABLE READOUTS AND CONTROL.</dd>
+  
+      <dt><strong>PARANOIA</strong></dt>
+      <dd>INSTABILITY / DISTRUST. SOME OPTIONS DISAPPEAR AS PARANOIA RISES.</dd>
+  
+      <dt><strong>RISK</strong></dt>
+      <dd>
+        TIME PRESSURE + SPREAD POTENTIAL. RISK INCREASES AUTOMATICALLY <strong>EVERY 5 MINUTES</strong>,
+        AND MAY SPIKE AFTER RISKY ACTIONS.
+      </dd>
+    </dl>
+  
+    <p>
+      NOTE: AT <strong>RISK ≥ 3</strong>, A <strong>SECONDARY INFECTION</strong> MAY OCCUR ONCE
+      (MAX 2 INFECTED TOTAL).
+    </p>
+  
+    <hr />
+  
+    <h3>INFECTION MODEL</h3>
+    <ul>
+      <li>EACH RUN BEGINS WITH <strong>EXACTLY 1 INFECTED</strong> CREW MEMBER (RANDOM IDENTITY).</li>
+      <li>CONFIRMATION IS ACHIEVED VIA <strong>MANUAL BLOOD TESTING</strong>.</li>
+    </ul>
+  
+    <hr />
+  
+    <h3>RECOMMENDED TOUR RUN (FAST DEMO)</h3>
+    <ol>
+      <li>
+        <strong>OPEN STATION CONSOLE</strong>
+        <div class="note">THIS IS THE MAIN HUB. YOU CAN SHOW RIGOR + METERS HERE.</div>
+      </li>
+  
+      <li>
+        <strong>GET STRONG EVIDENCE</strong> (ON STANDARD: PICK ANY TWO)
+        <ul>
+          <li>
+            <strong>KENNEL</strong> → RUN BEHAVIORAL PROVOCATION TEST → LOG ANOMALY
+          </li>
+          <li>
+            <strong>SECURITY PLAYBACK</strong> → LAST 4 HOURS → FLAG TIMELINE CONTRADICTION
+          </li>
+          <li>
+            <strong>GENERATOR</strong> → VIEW ROUTING TABLE → LOG UNAUTHORIZED ROUTE (HAB-03)
+          </li>
+        </ul>
+        <div class="note">ON STRICT, YOU’LL WANT ALL THREE.</div>
+      </li>
+  
+      <li>
+        <strong>CONFIRM INFECTION</strong>
+        <ul>
+          <li><strong>LAB</strong> → CONDUCT MANUAL BLOOD TESTS</li>
+          <li><strong>VIOLENT REACTION</strong> = INFECTED (CONFIRMED)</li>
+          <li><strong>NO REACTION</strong> = HUMAN</li>
+        </ul>
+        <div class="note">
+          OPTIONAL: <strong>BULK ANOMALY SCAN</strong> IS A SHORTCUT WITH CONSEQUENCES (RISK + UNCERTAINTY).
+        </div>
+      </li>
+  
+      <li>
+        <strong>MANAGE RISK</strong>
+        <ul>
+          <li>FOR THE BEST OUTCOME, EXECUTE WITH <strong>RISK ≤ 2</strong>.</li>
+          <li>REMEMBER: RISK ALSO INCREASES AUTOMATICALLY EVERY 5 MINUTES.</li>
+        </ul>
+      </li>
+  
+      <li>
+        <strong>FINAL ASSESSMENT</strong> → <strong>EXECUTE CONTAINMENT PROTOCOL</strong>
+        <div class="note">THIS IS THE ONLY ACTION THAT ENDS THE SIMULATION.</div>
+      </li>
+    </ol>
+  
+    <hr />
+  
+    <h3>OPTIONAL CONTENT (NON-ESSENTIAL)</h3>
+  
+    <h4>SHACK (EASTER EGG)</h4>
+    <ul>
+      <li>APPEARS ONLY IF: <strong>PARANOIA ≤ 2</strong>, NO CONFIRMED INFECTION, AND NOT ALREADY USED.</li>
+      <li>GRANTS AN OPTIONAL DOWNLOAD ON THAT SCREEN.</li>
+      <li>RETURNS TO CONSOLE (DOES <strong>NOT</strong> END THE SIMULATION).</li>
+      <li>MODIFIES METERS (RISK UP, CAUTION DOWN).</li>
+    </ul>
+  
+    <h4>CHESS WIZARD (MOVIE-ACCURATE)</h4>
+    <ul>
+      <li>PLAYS OUT THE FILM’S MOVE SEQUENCE (ASSERTIVE VS WITHDRAWAL FRAMING).</li>
+      <li>INCLUDES THE CHECKMATE LINE + OPTION TO POUR WHISKEY ON THE COMPUTER.</li>
+      <li>WHISKEY DISABLES CHESS WIZARD AFTERWARD (THEMATIC MOMENT, NOT A WIN CONDITION).</li>
+    </ul>
+  
+    <hr />
+  
+    <h3>ENDINGS (ONLY 2 — BOTH COMPLETE)</h3>
+  
+    <h4>CLEARANCE GRANTED</h4>
+    <ul>
+      <li><strong>INFECTION CONFIRMED</strong> (MANUAL BLOOD TEST RETURNS INFECTED)</li>
+      <li><strong>STRONG EVIDENCE THRESHOLD MET</strong> (BASED ON RIGOR)</li>
+      <li><strong>RISK ≤ 2</strong> AT EXECUTION</li>
+    </ul>
+    <p class="note">REWARD: <strong>CLEARANCE GRANTED</strong> TROPHY DOWNLOAD.</p>
+  
+    <h4>BREACH RECORDED</h4>
+    <p>
+      TRIGGERS IF ANY SUCCESS CONDITION IS NOT MET (NO CONFIRMATION, INSUFFICIENT STRONG EVIDENCE FOR RIGOR,
+      OR RISK TOO HIGH AT EXECUTION).
+    </p>
+    <p class="note">REWARD: <strong>BREACH RECORDED</strong> TROPHY DOWNLOAD.</p>
+  </section>
+  
+
+    <footer class="settingsFooter">
+      <a href="../">RETURN TO SIMULATION</a>
+    </footer>
+  </main>
+</body>
+</html>

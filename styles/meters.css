@@ -1,0 +1,123 @@
+/* meters.css — Meter bars (CRT style) */
+
+.meters {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.meter {
+  flex: 1 1 0;
+  min-width: 0;
+  border: var(--border) solid var(--border-color);
+  background: rgba(0, 15, 25, 0.2);
+  padding: 6px 10px;
+
+  &[data-meter="caution"] .meterFill {
+    background: var(--fg);
+    opacity: 0.8;
+  }
+
+  &[data-meter="paranoia"] .meterFill {
+    background: var(--fg-dim);
+    opacity: 0.7;
+  }
+
+  &[data-meter="risk"] {
+    & .meterFill {
+      background: var(--accent);
+    }
+
+    &.danger {
+      border-color: var(--fg);
+      animation: dangerPulse 800ms ease-in-out infinite;
+    }
+
+    &.critical .meterFill {
+      animation: criticalFlicker 150ms steps(2, end) infinite;
+    }
+  }
+}
+
+.meterTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+  font-size: var(--fs-ui);
+  color: var(--fg-dim);
+}
+
+.meterLabel {
+  color: var(--fg-dim);
+}
+
+.meterValue {
+  color: var(--fg);
+  text-shadow: var(--text-shadow);
+}
+
+.meterTrack {
+  height: 10px;
+  background: rgba(123, 207, 255, 0.1);
+  border: var(--border) solid var(--border-color);
+  overflow: hidden;
+  position: relative;
+
+  /* Tick marks */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent calc(10% - 1px),
+      var(--border-color) calc(10% - 1px),
+      var(--border-color) 10%
+    );
+  }
+
+  &.blip-up {
+    animation: meterBlipUp 150ms linear;
+  }
+
+  &.blip-down {
+    animation: meterBlipDown 150ms linear;
+  }
+}
+
+.meterFill {
+  height: 100%;
+  width: 0%;
+  background: var(--fg);
+  box-shadow: 0 0 10px var(--glow);
+  transition: width 120ms linear;
+}
+
+/* Animations */
+@keyframes meterBlipUp {
+  0% { box-shadow: none; }
+  50% { box-shadow: 0 0 15px var(--glow); }
+  100% { box-shadow: none; }
+}
+
+@keyframes meterBlipDown {
+  0% { box-shadow: none; }
+  50% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+  100% { box-shadow: none; }
+}
+
+@keyframes dangerPulse {
+  0% { box-shadow: none; }
+  50% { box-shadow: 0 0 20px var(--glow); }
+  100% { box-shadow: none; }
+}
+
+@keyframes criticalFlicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}

@@ -1,0 +1,10 @@
+/* main.css — Entry point
+   Vite will bundle these imports automatically */
+
+@import "./variables.css";
+@import "./base.css";
+@import "./hud.css";
+@import "./meters.css";
+@import "./choices.css";
+@import "./splash.css";
+

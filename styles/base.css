@@ -1,0 +1,146 @@
+/* base.css — Body, CRT effects, layout */
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  line-height: var(--lh);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: var(--text-shadow);
+}
+
+/* CRT Screen Container */
+#app {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px;
+  background: var(--bg-screen);
+  position: relative;
+  min-height: 80vh;
+
+  /* Subtle vignette */
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5),
+    inset 0 0 50px rgba(0, 0, 0, 0.3);
+
+  /* Scanlines overlay */
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 0, 0, 0.15) 2px,
+      rgba(0, 0, 0, 0.15) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* Screen flicker */
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(123, 207, 255, 0.02);
+    pointer-events: none;
+    z-index: 999;
+    animation: flicker 0.15s infinite;
+  }
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.27;
+  }
+  5% {
+    opacity: 0.34;
+  }
+  10% {
+    opacity: 0.27;
+  }
+  15% {
+    opacity: 0.34;
+  }
+  20% {
+    opacity: 0.27;
+  }
+  25% {
+    opacity: 0.38;
+  }
+  30% {
+    opacity: 0.27;
+  }
+  35% {
+    opacity: 0.32;
+  }
+  40% {
+    opacity: 0.27;
+  }
+  45% {
+    opacity: 0.36;
+  }
+  50% {
+    opacity: 0.27;
+  }
+  55% {
+    opacity: 0.34;
+  }
+  60% {
+    opacity: 0.27;
+  }
+  65% {
+    opacity: 0.32;
+  }
+  70% {
+    opacity: 0.27;
+  }
+  75% {
+    opacity: 0.35;
+  }
+  80% {
+    opacity: 0.27;
+  }
+  85% {
+    opacity: 0.33;
+  }
+  90% {
+    opacity: 0.27;
+  }
+  95% {
+    opacity: 0.37;
+  }
+  100% {
+    opacity: 0.27;
+  }
+}
+
+/* Links */
+a {
+  color: var(--fg-bright);
+  text-shadow: var(--text-shadow-bright);
+
+  &:hover {
+    text-decoration: none;
+    color: var(--accent);
+  }
+}
+
+/* Footer */
+.footer {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 24px;
+  text-align: center;
+  font-size: var(--fs-ui);
+  color: var(--fg-dim);
+}
+
+/* Selection */
+::selection {
+  background: var(--fg);
+  color: var(--bg);
+}

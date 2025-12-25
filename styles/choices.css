@@ -1,0 +1,75 @@
+/* choices.css — Output, choices, trophy (CRT style) */
+
+#output {
+  white-space: pre-wrap;
+  margin: 0;
+  padding: 16px;
+  border: var(--border) solid var(--border-color);
+  background: rgba(0, 15, 25, 0.2);
+  min-height: 280px;
+  color: var(--fg);
+}
+
+#choices {
+  margin-top: 16px;
+  border: var(--border) solid var(--border-color);
+  background: rgba(0, 15, 25, 0.15);
+  padding: 8px;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+  font-size: var(--fs-base);
+  color: var(--fg);
+  outline: none;
+  transition: all 0.1s;
+  border: 1px solid transparent;
+
+  &:hover {
+    color: var(--fg-bright);
+    background: rgba(123, 207, 255, 0.15);
+    border-color: var(--border-color);
+  }
+
+  &[aria-selected="true"] {
+    color: var(--fg-bright);
+    background: rgba(123, 207, 255, 0.2);
+    border-color: var(--accent);
+    text-shadow: var(--text-shadow-bright);
+
+    & .marker {
+      color: var(--accent);
+      text-shadow: var(--text-shadow-bright);
+    }
+  }
+
+  & .marker {
+    width: 24px;
+    color: var(--fg);
+    flex: 0 0 24px;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+#trophy {
+  margin-top: 20px;
+  padding: 16px;
+  border: var(--border) solid var(--border-color);
+  background: rgba(0, 15, 25, 0.2);
+  display: none;
+  text-align: center;
+}
+
+.sprite {
+  display: block;
+  margin: 16px auto;
+  max-width: 100%;
+  height: auto;
+  filter: sepia(100%) hue-rotate(180deg) saturate(150%);
+}

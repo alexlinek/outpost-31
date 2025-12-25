@@ -1,0 +1,60 @@
+/* splash.css — Splash/title screen (CRT style) */
+
+.splash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: clamp(24px, 4vw, 48px);
+  text-align: center;
+
+  & h1 {
+    margin: 0;
+    font-size: var(--fs-title);
+    letter-spacing: 0.15em;
+    color: var(--fg-bright);
+    text-shadow: var(--text-shadow-bright);
+    animation: textGlow 2s ease-in-out infinite alternate;
+  }
+
+  & .subtitle {
+    color: var(--fg-dim);
+    font-size: var(--fs-ui);
+    letter-spacing: 0.3em;
+  }
+
+  & img {
+    max-width: 100%;
+    height: auto;
+    filter: sepia(100%) hue-rotate(180deg) saturate(150%);
+    opacity: 0.9;
+  }
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 5px var(--glow), 0 0 10px var(--glow);
+  }
+  100% {
+    text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow), 0 0 30px var(--glow);
+  }
+}
+
+.promptRow {
+  width: 100%;
+  max-width: 400px;
+  border: var(--border) solid var(--border-color);
+  background: rgba(0, 15, 25, 0.2);
+  padding: 8px;
+}
+
+.promptHint {
+  color: var(--fg-dim);
+  font-size: var(--fs-ui);
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+}

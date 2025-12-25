@@ -3,9 +3,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>OUTPOST 31 — ASSIMILATION SIMULATION</title>
+  <title>U.S. OUTPOST 31</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="styles/main.css" />
 </head>
 <body>
   <main id="app">
@@ -13,11 +14,10 @@
     <!-- SPLASH / TITLE SCREEN -->
     <section id="splash" class="splash" aria-label="Title screen">
       <div>
-        <h1>OUTPOST 31</h1>
+        <h1>U.S.OUTPOST 31</h1>
         <div class="subtitle">ASSIMILATION SIMULATION</div>
       </div>
 
-      <!-- YOU CREATE THIS -->
       <img
         src="assets/title.png"
         alt="OUTPOST 31 TITLE ART"
@@ -35,6 +35,10 @@
 
   </main>
 
-  <script src="game.js" defer></script>
+  <footer class="footer">
+    <p>&copy; 2025 A.M. Radio | <a href="settings/index.html">Settings</a></p>
+  </footer>
+
+  <script type="module" src="src/main.js"></script>
 </body>
 </html>

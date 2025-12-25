@@ -1,0 +1,81 @@
+/* reset.css
+   =========================================
+   Modern CSS Reset
+   Based on Josh Comeau's & Andy Bell's resets
+   ========================================= */
+
+/* Box sizing for all elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin/padding */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevent font size inflation on mobile */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Smoother line heights for text */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Balanced text wrapping on headings */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+
+/* Sensible defaults for media */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Inherit fonts for form elements and code */
+input,
+button,
+textarea,
+select,
+pre,
+code {
+  font: inherit;
+}
+
+/* Anchor defaults */
+a {
+  color: inherit;
+  text-decoration-skip-ink: auto;
+}
+
+/* Remove list styles where role="list" */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Reduce motion for those who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

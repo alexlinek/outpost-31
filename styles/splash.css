@@ -26,8 +26,10 @@
   & img {
     max-width: 100%;
     height: auto;
-    filter: sepia(100%) hue-rotate(180deg) saturate(150%);
+    filter: invert(1) sepia(100%) hue-rotate(180deg) saturate(150%);
     opacity: 0.9;
+    /* margin-top: -150px; */
+    margin-bottom: 50px;
   }
 }
 
@@ -36,7 +38,8 @@
     text-shadow: 0 0 5px var(--glow), 0 0 10px var(--glow);
   }
   100% {
-    text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow), 0 0 30px var(--glow);
+    text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow),
+      0 0 30px var(--glow);
   }
 }
 
@@ -55,6 +58,10 @@
 }
 
 @keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }

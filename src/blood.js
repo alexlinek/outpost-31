@@ -89,11 +89,11 @@ export function initBloodSystem() {
 export function maybeTriggerSpread(s) {
   if (s.spreadTriggered) return;
   if (s.infectedIds.length >= 2) return;
-  if (s.infectionRisk < 3) return;
+  if (s.infectionRisk < 5) return; // Raised threshold from 3 to 5
 
   const chance =
-    // once it's hot, it's hot
-    s.infectionRisk >= 5 ? 1.0 : s.infectionRisk === 4 ? 0.75 : 0.55; // at 3
+    // Reduced spread probabilities for fairer gameplay
+    s.infectionRisk >= 7 ? 0.8 : s.infectionRisk === 6 ? 0.5 : 0.3; // at 5
 
   if (Math.random() < chance) {
     const candidates = BLOOD_ROSTER.map((c) => c.id).filter(
@@ -270,4 +270,3 @@ ${noteLine}
     ],
   };
 }
-

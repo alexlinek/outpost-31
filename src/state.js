@@ -15,9 +15,9 @@ export function displayDifficultyLabel(d) {
 }
 
 export function requiredEvidenceCount(difficulty) {
-  if (difficulty === "easy") return 1;
-  if (difficulty === "hard") return 3;
-  return 2; // normal
+  if (difficulty === "easy") return 0;
+  if (difficulty === "hard") return 2;
+  return 1; // normal
 }
 
 export function loadDifficulty() {

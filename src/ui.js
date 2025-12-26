@@ -30,12 +30,13 @@ function clamp(n, min, max) {
 /* -----------------------------
    TROPHY (PER-NODE ART)
 -------------------------------- */
-export function setTrophy({ title, href, filename }) {
+export function setTrophy({ title, href, filename, image }) {
   if (!trophyEl) return;
   trophyEl.style.display = "block";
+  const imageHtml = image ? `<img src="${image}" alt="Trophy" />` : "";
   trophyEl.innerHTML = `
     <p>${title}</p>
-    <p>DOWNLOAD:</p>
+    ${imageHtml}
     <p><a href="${href}" download="${filename}">⬇ DOWNLOAD</a></p>
   `;
 }
@@ -258,7 +259,7 @@ export function bootGameUI(appEl) {
   appEl.innerHTML = `
     <div class="hud" id="hud">
       <div class="hudHeader">
-        <div class="hudLeft"><strong>OUTPOST 31</strong> / ASSIMILATION MODEL</div>
+        <div class="hudLeft"><strong>OUTPOST 31</strong></div>
         <div class="hudRight" id="hudRight">TIME: 00:00:00</div>
       </div>
 
@@ -330,4 +331,3 @@ export function bootGameUI(appEl) {
 
   return document.getElementById("logline");
 }
-

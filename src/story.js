@@ -48,7 +48,7 @@ export function countEvidenceSignals(s) {
 export function containmentSuccess(s) {
   const strongCount = countStrongEvidence(s);
   const required = requiredEvidenceCount(s.difficulty);
-  return s.infectedFound && strongCount >= required && s.infectionRisk <= 2;
+  return s.infectedFound && strongCount >= required && s.infectionRisk <= 4;
 }
 
 /* -----------------------------
@@ -57,7 +57,7 @@ export function containmentSuccess(s) {
 export const story = {
   intro: {
     text: `
-U.S. OUTPOST 31 PREDICTIVE MODEL v2.3
+U.S. OUTPOST 31
 
 STATUS: STORM-LOCK
 VISIBILITY: NEAR ZERO
@@ -115,20 +115,12 @@ OPERATOR: YOU
     },
 
     choices: (s) => {
-      const out = [
-        {
-          label: "KENNEL — CAMERA FEED + BEHAVIORAL TEST",
-          next: "kennel_intro",
-        },
-        { label: "LAB — DIAGNOSTICS", next: "lab_intro" },
-        { label: "SECURITY PLAYBACK — INCIDENT TIMELINE", next: "logs_intro" },
-        { label: "GENERATOR — POWER STABILITY", next: "gen_intro" },
-      ];
+      const out = [];
 
       // Chess Wizard disappears if you pour whiskey on it
       if (!s.notes.includes("chess_wizard_ruined")) {
         out.push({
-          label: "CHESS WIZARD — UTILITY PROGRAM",
+          label: "CHESS WIZARD",
           next: "chess_intro",
         });
       } else {
@@ -141,13 +133,23 @@ OPERATOR: YOU
 
       if (s.paranoia <= 2 && !infectionConfirmed && !alreadyWent) {
         out.push({
-          label: "GET UP TO YOUR SHACK AND GET DRUNK",
+          label: "SHACK",
           next: "drunk_shack",
           effect: () => {
             logLine("OPTION SELECTED: OPERATOR WITHDRAWS.");
           },
         });
       }
+
+      out.push(
+        {
+          label: "KENNEL",
+          next: "kennel_intro",
+        },
+        { label: "LAB", next: "lab_intro" },
+        { label: "SECURITY PLAYBACK", next: "logs_intro" },
+        { label: "GENERATOR", next: "gen_intro" }
+      );
 
       out.push({ label: "FINAL ASSESSMENT", next: "final_assessment" });
       return out;
@@ -158,8 +160,6 @@ OPERATOR: YOU
   drunk_shack: {
     text: `
 YOU LEAVE THE CONSOLE.
-
-THE HALLWAY IS LONGER THAN IT SHOULD BE.
 THE WIND PUSHES AGAINST THE WALLS LIKE IT WANTS IN.
 
 YOUR SHACK IS COLD.
@@ -168,8 +168,8 @@ THE BOTTLE IS WARMER THAN YOUR HANDS.
 ONE DRINK BECOMES THREE.
 THE RADIO HISS SOUNDS LIKE SOMEONE BREATHING.
 
-YOU DO NOT PROVE ANYTHING.
-YOU DO NOT SAVE ANYONE.
+YOU DON'T PROVE ANYTHING.
+YOU DON'T SAVE ANYONE.
 
 BUT FOR A LITTLE WHILE,
 YOU ARE NOT THINKING.
@@ -188,7 +188,8 @@ YOU ARE NOT THINKING.
       },
     ],
     trophy: () => ({
-      title: "FILE GENERATED: LIQUID COURAGE (UNOFFICIAL).",
+      title: "FILE GENERATED: LIQUID COURAGE.",
+      image: "assets/J&B.png",
       href: "assets/drunk-trophy.png",
       filename: "outpost31-liquid-courage.png",
     }),
@@ -202,7 +203,7 @@ YOU ARE NOT THINKING.
 KENNEL FEED: LIVE
 
 THE DOGS ARE RESTLESS.
-ONE ANIMAL STANDS PERFECTLY STILL, FACING THE WALL.
+THE NORWEGIAN SLED DOG SITS PERFECTLY STILL, FACING THE WALL.
 
 THERMAL: SLIGHTLY ELEVATED.
 BEHAVIORAL: ABNORMAL.
@@ -222,8 +223,8 @@ SELECT ACTION:
         label: "WATCH SILENTLY (60 SECONDS)",
         next: "kennel_watch",
         effect: () => {
-          state.infectionRisk += 1;
-          maybeTriggerSpread(state);
+          // Quiet observation is cautious, no risk increase
+          state.caution += 1;
         },
       },
       {
@@ -242,10 +243,10 @@ SELECT ACTION:
 YOU WATCH.
 
 THE PACK SHIFTS AND WHINES.
-THE STILL DOG DOES NOT MOVE.
+THE NORWEGIAN DOG DOES NOT MOVE.
 
 THE CAMERA DROPS TWO FRAMES.
-WHEN IT RETURNS, THE DOG'S HEAD IS TURNED.
+WHEN IT RETURNS, THE NORWEGIAN DOG'S HEAD IS TURNED.
 
 NO MOTION IS SHOWN.
 ONLY THE RESULT.
@@ -272,7 +273,7 @@ TEST: PROVOCATION (NOISE + LIGHT)
 THE PACK REACTS IMMEDIATELY.
 THE STILL DOG DOES NOT FLINCH.
 
-THEN—A DELAYED HEAD TURN.
+THEN &mdash; A DELAYED HEAD TURN.
 TOO SMOOTH. TOO LATE.
 
 RESULT: ANOMALY CONFIRMED.
@@ -404,12 +405,7 @@ SELECT OPERATION:
       out.push({
         label: "EXIT TO LAB PROTOCOLS",
         next: "lab_intro",
-        effect: () => {
-          if (!state.infectedFound) {
-            state.infectionRisk += 1;
-            maybeTriggerSpread(state);
-          }
-        },
+        // Exiting the lab is a normal action, no penalty
       });
 
       return out;
@@ -538,9 +534,6 @@ SECURITY PLAYBACK — INCIDENT TIMELINE
 SOURCE: INTERNAL CAMERAS + HALLWAY SENSORS
 STATUS: DEGRADED / DROPPED FRAMES
 
-YOU ARE NOT READING A LOG.
-YOU ARE SCRUBBING THROUGH CORRUPTED FOOTAGE.
-
 SELECT A PLAYBACK QUERY:
     `,
     choices: [
@@ -596,14 +589,6 @@ ${name} ENTERS FRAME. (NO TRANSITION SHOWN.)
 00:54 — CAM: HAB-03
 ${name} ENTERS FRAME.
 (CAMERA FEED WAS OFFLINE 00:52–00:54.)
-
-NOTE:
-ONE PERSON CANNOT BE IN THREE PLACES
-WITHIN TWO MINUTES.
-
-THE SYSTEM STITCHES THIS TOGETHER
-LIKE IT WAS NORMAL.
-IT IS NOT NORMAL.
       `.trim();
     },
     choices: [
@@ -630,7 +615,6 @@ NO ENTRY EVENT RECORDED.
 
 THERMAL OVERLAY CUTS IN:
 A HUMAN SHAPE — BUT THE HEAT SIGNATURE IS WRONG.
-LIKE SOMEONE DRAWN IN BLUE INK.
 
 THE SYSTEM TAGS THE CLIP:
 "NON-URGENT — SENSOR DRIFT."
@@ -642,6 +626,8 @@ THE SYSTEM TAGS THE CLIP:
         effect: () => {
           addNote("hab03_anomaly");
           state.caution += 1;
+          // Flagging anomalies helps contain spread
+          state.infectionRisk = Math.max(0, state.infectionRisk - 1);
         },
       },
     ],
@@ -654,9 +640,6 @@ FILTER: KENNEL
 CAM: KEN-1
 FEED DROPS FOR 17 SECONDS.
 AUTO-RESTORE ENGAGED.
-
-THE MISSING FRAMES ARE NOT BLACK.
-THEY ARE MARKED: "EMPTY."
 
 WHEN THE FEED RETURNS,
 THE DOGS ARE IN DIFFERENT POSITIONS.
@@ -737,6 +720,8 @@ SIGNATURE: INVALID
         effect: () => {
           addNote("generator_reroute_hab03");
           state.paranoia += 1;
+          // Cutting off unauthorized power helps containment
+          state.infectionRisk = Math.max(0, state.infectionRisk - 1);
         },
       },
     ],
@@ -748,7 +733,7 @@ LOAD TEST INITIATED
 
 NEEDLE SHAKES.
 LIGHTS DIM.
-A DISTANT METAL GROAN FROM SOMEWHERE IN THE WALLS.
+A DISTANT METALLIC GROAN FROM SOMEWHERE IN THE WALLS.
 
 FOR ONE MOMENT, THE MONITOR SHOWS:
 "ADDITIONAL DRAW: UNKNOWN DEVICE"
@@ -795,6 +780,8 @@ YOU DID NOT ENTER A SECOND SIGNATURE.
         effect: () => {
           addNote("generator_lock_bypassed");
           state.paranoia += 1;
+          // Locking routing changes is a containment measure
+          state.infectionRisk = Math.max(0, state.infectionRisk - 1);
         },
       },
     ],
@@ -839,12 +826,6 @@ BISHOP TO KNIGHT 4.
 THE COMPUTER RESPONDS IMMEDIATELY.
 
 KNIGHT TO ROOK 3.
-
-NO HESITATION.
-NO EVALUATION DELAY.
-
-YOU CAN FEEL IT:
-THE POSITION IS CLOSING.
     `.trim(),
     choices: [
       { label: "CONTINUE", next: "chess_checkmate" },
@@ -857,9 +838,7 @@ THE POSITION IS CLOSING.
 MOVE REGISTERED:
 KING TO ROOK 1.
 
-THE COMPUTER PAUSES.
-JUST LONG ENOUGH TO BE INSULTING.
-
+THE COMPUTER MOVES:
 ROOK TO KNIGHT 6.
 
 CHECK.
@@ -881,12 +860,6 @@ ROOK TO KNIGHT 6.
 
 CHECKMATE.
 CHECKMATE.
-
-IT ISN'T BRAGGING.
-IT'S A FORECAST.
-
-YOU MUTTER:
-"YOU CHEATING BITCH."
     `.trim(),
     choices: [
       {
@@ -912,31 +885,9 @@ YOU MUTTER:
     ],
   },
 
-  chess_stare: {
-    text: `
-THE CURSOR STOPS BLINKING.
-
-FOR A MOMENT, THE BOARD LOOKS WRONG.
-NOT CHESS. NOT EVEN GAMES.
-
-THEN IT'S NORMAL AGAIN.
-
-NORMAL DOESN'T HELP.
-    `.trim(),
-    choices: [{ label: "RETURN TO CONSOLE", next: "console" }],
-  },
-
   chess_whiskey: {
     text: `
-YOU UNSCREW THE CAP.
-
-THE LIQUID HITS THE KEYS.
-THE SCREEN GOES BLACK MID-WORD.
-
-NO SHUTDOWN SEQUENCE.
-NO ERROR REPORT.
-
-JUST SILENCE.
+YOU OPEN THE VENT ON THE COMPUTER AND POUR YOUR WHISKEY INSIDE. SPARKS FLY WHILE YOU MUTTER, "YOU CHEATING BITCH."
     `.trim(),
     choices: [{ label: "RETURN TO CONSOLE", next: "console" }],
   },
@@ -1039,13 +990,14 @@ NO FURTHER EVENTS DETECTED.
 LAST LOG ENTRY:
 "OBJECTIVE MET."
 
-SIMULATION TERMINATED: CONTAINMENT SUCCESSFUL.
+SIMULATION TERMINATED: **CONTAINMENT SUCCESSFUL.**
 ${confidenceTagLine(s)}
       `.trim();
     },
     choices: [{ label: "RESTART SIMULATION", next: "intro" }],
     trophy: () => ({
       title: "TROPHY UNLOCKED: CLEARANCE GRANTED.",
+      image: "assets/flamethrower.png",
       href: "assets/trophy-containment-success.png",
       filename: "outpost31-clearance-granted.png",
     }),
@@ -1078,6 +1030,7 @@ ${confidenceTagLine(s)}
     choices: [{ label: "RESTART SIMULATION", next: "intro" }],
     trophy: () => ({
       title: "TROPHY UNLOCKED: BREACH RECORDED.",
+      image: "assets/macready-hat.png",
       href: "assets/trophy-containment-failure.png",
       filename: "outpost31-breach-recorded.png",
     }),

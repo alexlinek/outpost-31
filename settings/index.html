@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>OUTPOST 31 — SETTINGS</title>
+  <title>U.S. OUTPOST 31</title>
   <link rel="stylesheet" href="../reset.css" />
   <link rel="stylesheet" href="../styles/main.css" />
 </head>
@@ -12,172 +12,201 @@
   <main class="settingsWrap">
     <header class="settingsHeader">
       <h1>SETTINGS / SYSTEM MENU</h1>
-      <p class="settingsSub">OUTPOST 31 PREDICTIVE MODEL v2.3</p>
+      <p class="settingsSub">U.S. OUTPOST 31</p>
     </header>
 
-    <!-- SETTINGS PAGE: COMPLETE PLAYER GUIDE (drop into settings/index.html) -->
-<section id="help" class="settingsSection">
-    <h2>HELP / PLAYER GUIDE</h2>
-  
-    <h3>CONTROLS</h3>
-    <ul>
-      <li><strong>↑ / ↓</strong> — SELECT OPTION</li>
-      <li><strong>ENTER</strong> — CONFIRM</li>
-      <li><strong>CLICK/TAP</strong> — SELECT</li>
-    </ul>
-  
-    <h3>WHAT THIS IS</h3>
-    <p>
-      A SHORT, REPLAYABLE TEXT SIMULATION INSPIRED BY <em>THE THING</em>.
-      YOUR JOB IS TO GATHER EVIDENCE, CONFIRM INFECTION, THEN EXECUTE CONTAINMENT.
-      THE SIMULATION ENDS ONLY WHEN CONTAINMENT IS EXECUTED.
-    </p>
-  
-    <hr />
-  
-    <h3>DIFFICULTY / RIGOR (AFFECTS CLEARANCE)</h3>
-    <p>
-      THE SIM TRACKS <strong>3 STRONG EVIDENCE SIGNALS</strong>. RIGOR DETERMINES HOW MANY ARE REQUIRED FOR
-      <strong>CLEARANCE GRANTED</strong>.
-    </p>
-  
-    <ol>
-      <li><strong>KENNEL</strong> — PROVOCATION ANOMALY</li>
-      <li><strong>SECURITY PLAYBACK</strong> — TIMELINE CONTRADICTION</li>
-      <li><strong>GENERATOR</strong> — UNAUTHORIZED ROUTE (HAB-03)</li>
-    </ol>
-  
-    <ul>
-      <li><strong>RELAXED</strong> — 1/3 REQUIRED</li>
-      <li><strong>STANDARD</strong> (DEFAULT) — 2/3 REQUIRED</li>
-      <li><strong>STRICT</strong> — 3/3 REQUIRED</li>
-    </ul>
-  
-    <p>
-      THE CONSOLE DISPLAYS THIS AS: <strong>STRONG EVIDENCE REQUIRED: X/3</strong>.
-    </p>
-  
-    <hr />
-  
-    <h3>METERS</h3>
-    <dl>
-      <dt><strong>CAUTION</strong></dt>
-      <dd>PROCEDURE / VERIFICATION. HIGHER CAUTION SUPPORTS RELIABLE READOUTS AND CONTROL.</dd>
-  
-      <dt><strong>PARANOIA</strong></dt>
-      <dd>INSTABILITY / DISTRUST. SOME OPTIONS DISAPPEAR AS PARANOIA RISES.</dd>
-  
-      <dt><strong>RISK</strong></dt>
-      <dd>
-        TIME PRESSURE + SPREAD POTENTIAL. RISK INCREASES AUTOMATICALLY <strong>EVERY 5 MINUTES</strong>,
-        AND MAY SPIKE AFTER RISKY ACTIONS.
-      </dd>
-    </dl>
-  
-    <p>
-      NOTE: AT <strong>RISK ≥ 3</strong>, A <strong>SECONDARY INFECTION</strong> MAY OCCUR ONCE
-      (MAX 2 INFECTED TOTAL).
-    </p>
-  
-    <hr />
-  
-    <h3>INFECTION MODEL</h3>
-    <ul>
-      <li>EACH RUN BEGINS WITH <strong>EXACTLY 1 INFECTED</strong> CREW MEMBER (RANDOM IDENTITY).</li>
-      <li>CONFIRMATION IS ACHIEVED VIA <strong>MANUAL BLOOD TESTING</strong>.</li>
-    </ul>
-  
-    <hr />
-  
-    <h3>RECOMMENDED TOUR RUN (FAST DEMO)</h3>
-    <ol>
-      <li>
-        <strong>OPEN STATION CONSOLE</strong>
-        <div class="note">THIS IS THE MAIN HUB. YOU CAN SHOW RIGOR + METERS HERE.</div>
-      </li>
-  
-      <li>
-        <strong>GET STRONG EVIDENCE</strong> (ON STANDARD: PICK ANY TWO)
-        <ul>
-          <li>
-            <strong>KENNEL</strong> → RUN BEHAVIORAL PROVOCATION TEST → LOG ANOMALY
-          </li>
-          <li>
-            <strong>SECURITY PLAYBACK</strong> → LAST 4 HOURS → FLAG TIMELINE CONTRADICTION
-          </li>
-          <li>
-            <strong>GENERATOR</strong> → VIEW ROUTING TABLE → LOG UNAUTHORIZED ROUTE (HAB-03)
-          </li>
-        </ul>
-        <div class="note">ON STRICT, YOU’LL WANT ALL THREE.</div>
-      </li>
-  
-      <li>
-        <strong>CONFIRM INFECTION</strong>
-        <ul>
-          <li><strong>LAB</strong> → CONDUCT MANUAL BLOOD TESTS</li>
-          <li><strong>VIOLENT REACTION</strong> = INFECTED (CONFIRMED)</li>
-          <li><strong>NO REACTION</strong> = HUMAN</li>
-        </ul>
-        <div class="note">
-          OPTIONAL: <strong>BULK ANOMALY SCAN</strong> IS A SHORTCUT WITH CONSEQUENCES (RISK + UNCERTAINTY).
+    <!-- SETTINGS PAGE: HELP / GUIDE + SPOILER ACCORDIONS -->
+    <section id="help" class="settingsSection">
+        <h2>SETTINGS / HELP</h2>
+    
+        <div class="settingsGrid">
+        <div class="card">
+            <h3>CONTROLS</h3>
+            <ul>
+            <li><strong>↑ / ↓</strong> — SELECT</li>
+            <li><strong>ENTER</strong> — CONFIRM</li>
+            <li><strong>CLICK/TAP</strong> — SELECT</li>
+            </ul>
         </div>
-      </li>
-  
-      <li>
-        <strong>MANAGE RISK</strong>
+    
+        <div class="card">
+            <h3>OBJECTIVE</h3>
+            <p>
+            INVESTIGATE STATION SUBSYSTEMS. CONFIRM INFECTION. GATHER CORROBORATING EVIDENCE.
+            THEN <strong>EXECUTE CONTAINMENT PROTOCOL</strong>.
+            </p>
+            <p class="note">THE SIMULATION ENDS ONLY WHEN CONTAINMENT IS EXECUTED.</p>
+        </div>
+        </div>
+    
+        <hr />
+    
+        <h3>RIGOR (DIFFICULTY)</h3>
+        <p>
+        RIGOR DETERMINES HOW MANY <strong>STRONG EVIDENCE</strong> SIGNALS YOU NEED FOR THE BEST OUTCOME.
+        THE CONSOLE SHOWS THIS AS <strong>STRONG EVIDENCE REQUIRED: X/3</strong>.
+        </p>
         <ul>
-          <li>FOR THE BEST OUTCOME, EXECUTE WITH <strong>RISK ≤ 2</strong>.</li>
-          <li>REMEMBER: RISK ALSO INCREASES AUTOMATICALLY EVERY 5 MINUTES.</li>
+        <li><strong>RELAXED</strong> — 1/3 REQUIRED</li>
+        <li><strong>STANDARD</strong> (DEFAULT) — 2/3 REQUIRED</li>
+        <li><strong>STRICT</strong> — 3/3 REQUIRED</li>
         </ul>
-      </li>
+    
+        <hr />
+    
+        <h3>METERS</h3>
+        <dl class="metersDl">
+        <dt><strong>CAUTION</strong></dt>
+        <dd>PROCEDURE / VERIFICATION. HIGHER CAUTION SUPPORTS RELIABLE DECISIONS.</dd>
+    
+        <dt><strong>PARANOIA</strong></dt>
+        <dd>INSTABILITY / DISTRUST. SOME OPTIONS DISAPPEAR AS PARANOIA RISES.</dd>
+    
+        <dt><strong>RISK</strong></dt>
+        <dd>
+            TIME PRESSURE + SPREAD POTENTIAL. INCREASES <strong>EVERY 5 MINUTES</strong>, AND MAY SPIKE AFTER RISKY ACTIONS.
+            AT <strong>RISK ≥ 3</strong>, A SECONDARY INFECTION MAY OCCUR ONCE (MAX 2 INFECTED TOTAL).
+        </dd>
+        </dl>
+    
+        <hr />
+    
+        <h3>QUICK TOUR RUN (FAST DEMO)</h3>
+        <ol>
+        <li><strong>OPEN STATION CONSOLE</strong> (SHOW METERS + RIGOR HEADER)</li>
+        <li>
+            <strong>COLLECT STRONG EVIDENCE</strong>
+            <div class="note">ON STANDARD, YOU WANT ANY TWO. ON STRICT, ALL THREE.</div>
+            <ul>
+            <li><strong>KENNEL</strong> → RUN PROVOCATION TEST → LOG ANOMALY</li>
+            <li><strong>SECURITY PLAYBACK</strong> → LAST 4 HOURS → FLAG CONTRADICTION</li>
+            <li><strong>GENERATOR</strong> → VIEW ROUTING TABLE → LOG UNAUTHORIZED ROUTE</li>
+            </ul>
+        </li>
+        <li>
+            <strong>CONFIRM INFECTION</strong>
+            <ul>
+            <li><strong>LAB</strong> → MANUAL BLOOD TESTS</li>
+            <li><strong>VIOLENT REACTION</strong> = INFECTED (CONFIRMED)</li>
+            <li><strong>NO REACTION</strong> = HUMAN</li>
+            </ul>
+            <div class="note">BULK SCAN IS A SHORTCUT WITH CONSEQUENCES (RISK + UNCERTAINTY).</div>
+        </li>
+        <li><strong>KEEP RISK LOW</strong> (BEST OUTCOME TARGET: <strong>RISK ≤ 2</strong> AT EXECUTION)</li>
+        <li><strong>FINAL ASSESSMENT</strong> → <strong>EXECUTE CONTAINMENT PROTOCOL</strong></li>
+        </ol>
+    
+        <hr />
+    
+        <h3>OPTIONAL / FLAVOR</h3>
+        <ul>
+        <li>
+            <strong>SHACK</strong> — AN EASTER EGG THAT APPEARS ONLY IF <strong>PARANOIA ≤ 2</strong>, NO CONFIRMED INFECTION,
+            AND NOT ALREADY USED. RETURNS TO CONSOLE.
+        </li>
+        <li>
+            <strong>CHESS WIZARD</strong> — MOVIE-ACCURATE MOVE SEQUENCE + CHECKMATE QUOTE + OPTIONAL WHISKEY SHUTDOWN.
+        </li>
+        </ul>
+    </section>
+    
+    <section id="spoilers" class="settingsSection">
+        <h2>SPOILERS</h2>
+        <p class="note">OPEN ONLY IF YOU WANT THE FULL SYSTEM LOGIC + ENDING RULES.</p>
+    
+        <div class="accordion">
+        <details>
+            <summary>ENDINGS (2 TOTAL)</summary>
+            <div class="detailsBody">
+            <h3>CLEARANCE GRANTED (BEST)</h3>
+            <ul>
+                <li><strong>INFECTION CONFIRMED</strong> (MANUAL BLOOD TEST RETURNS INFECTED)</li>
+                <li><strong>STRONG EVIDENCE THRESHOLD MET</strong> (BASED ON RIGOR)</li>
+                <li><strong>RISK ≤ 2</strong> AT EXECUTION</li>
+            </ul>
+            <p class="note">REWARD: CLEARANCE GRANTED TROPHY DOWNLOAD.</p>
+    
+            <h3>BREACH RECORDED</h3>
+            <p>
+                TRIGGERS IF ANY SUCCESS CONDITION IS NOT MET: NO CONFIRMED INFECTION, INSUFFICIENT STRONG EVIDENCE
+                FOR THE SELECTED RIGOR, OR RISK TOO HIGH AT EXECUTION.
+            </p>
+            <p class="note">REWARD: BREACH RECORDED TROPHY DOWNLOAD.</p>
+            </div>
+        </details>
+    
+        <details>
+            <summary>WHAT COUNTS AS “STRONG EVIDENCE” (THE 3 FLAGS)</summary>
+            <div class="detailsBody">
+            <ol>
+                <li><strong>KENNEL</strong> — PROVOCATION TEST CONFIRMS ANOMALOUS RESPONSE</li>
+                <li><strong>SECURITY PLAYBACK</strong> — TIMELINE CONTRADICTION (ONE PERSON IN MULTIPLE PLACES)</li>
+                <li><strong>GENERATOR</strong> — UNAUTHORIZED ROUTE FEEDING HAB-03 (INVALID SIGNATURE)</li>
+            </ol>
+            <p class="note">
+                THESE ARE THE ONLY FLAGS THAT COUNT TOWARD THE RIGOR THRESHOLD. OTHER ANOMALIES ADD FLAVOR / PRESSURE.
+            </p>
+            </div>
+        </details>
+    
+        <details>
+            <summary>LAB DETAILS (BLOOD TESTS, BULK SCAN, SIMULATION)</summary>
+            <div class="detailsBody">
+            <ul>
+                <li><strong>MANUAL BLOOD TEST</strong> IS THE ONLY WAY TO CONFIRM INFECTION.</li>
+                <li>
+                <strong>BULK SCAN</strong> IS FAST BUT RISKY: IT INCREASES RISK AND CAN MAKE READOUTS FEEL LESS TRUSTWORTHY,
+                ENCOURAGING RETESTING.
+                </li>
+                <li>
+                <strong>ASSIMILATION SIMULATION</strong> SUMMARIZES CURRENT DATA. IF RUN TOO EARLY, IT DISPLAYS
+                “DATA INSUFFICIENT” / “LIMITED DATA” WARNINGS.
+                </li>
+            </ul>
+            </div>
+        </details>
+    
+        <details>
+            <summary>INFECTION / SPREAD RULES</summary>
+            <div class="detailsBody">
+            <ul>
+                <li>Every run starts with <strong>exactly 1 infected</strong> crew member (random identity).</li>
+                <li>
+                At <strong>risk ≥ 3</strong>, the system may trigger <strong>one secondary infection</strong> (max 2 total).
+                </li>
+                <li>
+                This is meant to punish delays / chaos, not to create unwindable states.
+                </li>
+            </ul>
+            </div>
+        </details>
+    
+        <details>
+            <summary>CHESS WIZARD</summary>
+            <div class="detailsBody">
+            <p>THE CHESS PROGRAM MIRRORS THE FILM SEQUENCE:</p>
+            <ul>
+                <li>Player: <strong>bishop to knight 4</strong> (assertive) or <strong>king to rook 1</strong> (withdrawal)</li>
+                <li>Computer responds, then declares: <strong>checkmate. checkmate.</strong></li>
+                <li>Flavor line appears: <strong>“you cheating bitch.”</strong></li>
+                <li>Optional: <strong>Pour whiskey</strong> to take chess wizard offline.</li>
+            </ul>
+            </div>
+        </details>
+    
+        <details>
+            <summary>SHACK</summary>
+            <div class="detailsBody">
+            <ul>
+                <li>Only appears if <strong>PARANOIA ≤ 2</strong>, no confirmed infection, and not already used.</li>
+                <li>Modifies meters (risk up, caution down), then returns to console.</li>
+                <li>Does not affect ending rules directly (it’s a human moment).</li>
+            </ul>
+            </div>
+        </details>
+        </div>
+    </section>
   
-      <li>
-        <strong>FINAL ASSESSMENT</strong> → <strong>EXECUTE CONTAINMENT PROTOCOL</strong>
-        <div class="note">THIS IS THE ONLY ACTION THAT ENDS THE SIMULATION.</div>
-      </li>
-    </ol>
-  
-    <hr />
-  
-    <h3>OPTIONAL CONTENT (NON-ESSENTIAL)</h3>
-  
-    <h4>SHACK (EASTER EGG)</h4>
-    <ul>
-      <li>APPEARS ONLY IF: <strong>PARANOIA ≤ 2</strong>, NO CONFIRMED INFECTION, AND NOT ALREADY USED.</li>
-      <li>GRANTS AN OPTIONAL DOWNLOAD ON THAT SCREEN.</li>
-      <li>RETURNS TO CONSOLE (DOES <strong>NOT</strong> END THE SIMULATION).</li>
-      <li>MODIFIES METERS (RISK UP, CAUTION DOWN).</li>
-    </ul>
-  
-    <h4>CHESS WIZARD (MOVIE-ACCURATE)</h4>
-    <ul>
-      <li>PLAYS OUT THE FILM’S MOVE SEQUENCE (ASSERTIVE VS WITHDRAWAL FRAMING).</li>
-      <li>INCLUDES THE CHECKMATE LINE + OPTION TO POUR WHISKEY ON THE COMPUTER.</li>
-      <li>WHISKEY DISABLES CHESS WIZARD AFTERWARD (THEMATIC MOMENT, NOT A WIN CONDITION).</li>
-    </ul>
-  
-    <hr />
-  
-    <h3>ENDINGS (ONLY 2 — BOTH COMPLETE)</h3>
-  
-    <h4>CLEARANCE GRANTED</h4>
-    <ul>
-      <li><strong>INFECTION CONFIRMED</strong> (MANUAL BLOOD TEST RETURNS INFECTED)</li>
-      <li><strong>STRONG EVIDENCE THRESHOLD MET</strong> (BASED ON RIGOR)</li>
-      <li><strong>RISK ≤ 2</strong> AT EXECUTION</li>
-    </ul>
-    <p class="note">REWARD: <strong>CLEARANCE GRANTED</strong> TROPHY DOWNLOAD.</p>
-  
-    <h4>BREACH RECORDED</h4>
-    <p>
-      TRIGGERS IF ANY SUCCESS CONDITION IS NOT MET (NO CONFIRMATION, INSUFFICIENT STRONG EVIDENCE FOR RIGOR,
-      OR RISK TOO HIGH AT EXECUTION).
-    </p>
-    <p class="note">REWARD: <strong>BREACH RECORDED</strong> TROPHY DOWNLOAD.</p>
-  </section>
-  
-
     <footer class="settingsFooter">
       <a href="../">RETURN TO SIMULATION</a>
     </footer>
